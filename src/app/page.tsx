@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import {
   Home,
   Compass,
@@ -14,28 +14,60 @@ import {
   MoreHorizontal,
   BadgeCheck,
 } from 'lucide-react';
+import {
+  FireOutlined,
+  CrownOutlined,
+  BulbOutlined,
+  AlertOutlined,
+  WarningOutlined,
+  FlagOutlined,
+  HistoryOutlined,
+  StarOutlined,
+  EditOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+  EllipsisOutlined,
+} from '@ant-design/icons';
 import { useFeedGenerator } from '@/hooks/useFeedGenerator';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { LanguageToggleCompact } from '@/components/LanguageToggle';
 import type { SocialPost } from '@/types';
+import Link from 'next/link';
 
 /**
  * Left Sidebar Navigation Component
  */
 function LeftSidebar() {
+  const { t } = useLanguage();
+  const { user, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const navItems = [
-    { icon: Home, label: 'Home', active: true },
-    { icon: Compass, label: 'Explore', active: false },
-    { icon: Clock, label: 'Timeline', active: false },
+    { icon: Home, labelVi: 'Trang chủ', labelEn: 'Home', active: true },
+    { icon: Compass, labelVi: 'Khám phá', labelEn: 'Explore', active: false },
+    { icon: Clock, labelVi: 'Dòng thời gian', labelEn: 'Timeline', active: false },
   ];
 
   return (
-    <aside className="sticky top-0 h-screen w-[275px] px-3 py-4 flex flex-col border-r border-[#2f3336]">
+    <aside className="sticky top-0 h-screen w-[280px] px-3 py-4 flex flex-col border-r border-[#2f3336] overflow-y-auto scrollbar-hide">
       {/* Logo */}
       <div className="px-3 py-2 mb-4">
         <div className="flex items-center gap-2">
-          <Clock className="w-8 h-8 text-[#1d9bf0]" />
-          <span className="text-xl font-bold bg-gradient-to-r from-[#1d9bf0] to-purple-500 bg-clip-text text-transparent">
-            ChronoFeed
-          </span>
+          <div className="relative">
+            <Clock className="w-8 h-8 text-[#da251d]" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#ffcd00] rounded-full" />
+          </div>
+          <div>
+            <span className="text-xl font-bold text-gradient-vietnam">
+              ChronoFeed
+            </span>
+            <p className="text-[10px] text-[#71767b] flex items-center gap-1">
+              {t('Lịch Sử Việt Nam', 'Vietnamese History')}
+              <FlagOutlined className="text-[#da251d]" />
+            </p>
+          </div>
         </div>
       </div>
 
@@ -43,24 +75,75 @@ function LeftSidebar() {
       <nav className="flex-1">
         <ul className="space-y-1">
           {navItems.map((item) => (
-            <li key={item.label}>
+            <li key={item.labelEn}>
               <button
                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-full transition-colors hover:bg-[#16181c] ${
                   item.active ? 'font-bold' : 'font-normal'
                 }`}
               >
                 <item.icon className="w-6 h-6" />
-                <span className="text-xl">{item.label}</span>
+                <span className="text-lg">{t(item.labelVi, item.labelEn)}</span>
               </button>
-            </li>
+          </li>
           ))}
         </ul>
       </nav>
 
+      {/* Language Toggle - Compact version for sidebar */}
+      <div className="px-3 py-2">
+        <LanguageToggleCompact />
+      </div>
+
+      {/* User Profile / Login Button */}
+      <div className="px-3 py-3 mt-auto">
+        {user ? (
+          <div className="relative">
+            <button
+              onClick={() => setShowUserMenu(!showUserMenu)}
+              className="w-full flex items-center gap-3 p-3 rounded-full hover:bg-[#16181c] transition-colors"
+            >
+              <img
+                src={user.avatarUrl || `https://api.dicebear.com/7.x/personas/svg?seed=${user.handle}`}
+                alt={user.name}
+                className="w-10 h-10 rounded-full bg-[#16181c]"
+              />
+              <div className="flex-1 text-left min-w-0">
+                <p className="font-bold text-sm truncate">{user.name}</p>
+                <p className="text-[#71767b] text-xs truncate">@{user.handle}</p>
+              </div>
+              <EllipsisOutlined className="text-[#71767b]" />
+            </button>
+
+            {/* User Menu Dropdown */}
+            {showUserMenu && (
+              <div className="absolute bottom-full left-0 right-0 mb-2 bg-[#16181c] border border-[#2f3336] rounded-xl shadow-xl overflow-hidden">
+                <button
+                  onClick={() => {
+                    logout();
+                    setShowUserMenu(false);
+                  }}
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#1d1f23] transition-colors text-left text-red-400"
+                >
+                  <LogoutOutlined />
+                  <span>{t('Đăng xuất', 'Log out')}</span>
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-[#da251d] to-[#ff6b35] text-white rounded-full font-bold hover:opacity-90 transition-all"
+          >
+            <LoginOutlined />
+            {t('Đăng nhập', 'Sign In')}
+          </Link>
+        )}
+      </div>
+
       {/* Footer */}
-      <div className="px-3 py-4 text-sm text-[#71767b]">
+      <div className="px-3 py-2 text-xs text-[#71767b]">
         <p>© 2024 ChronoFeed</p>
-        <p>Hackathon Project</p>
       </div>
     </aside>
   );
@@ -70,77 +153,106 @@ function LeftSidebar() {
  * Right Sidebar - Trending Topics Component
  */
 function RightSidebar() {
+  const { t } = useLanguage();
+
   const trendingTopics = [
-    { category: 'Ancient History', title: 'Roman Empire', posts: '45.2K' },
-    { category: 'World Wars', title: 'D-Day Anniversary', posts: '128K' },
-    { category: 'Space', title: 'Moon Landing 1969', posts: '89.3K' },
-    { category: 'Revolution', title: 'French Revolution', posts: '34.1K' },
-    { category: 'Renaissance', title: 'Leonardo da Vinci', posts: '22.8K' },
+    { categoryVi: 'Dựng nước', categoryEn: 'Nation Building', title: 'Vua Hùng - Văn Lang', posts: '100K' },
+    { categoryVi: 'Chống ngoại xâm', categoryEn: 'Resistance', title: 'Hai Bà Trưng', posts: '89K' },
+    { categoryVi: 'Chiến thắng', categoryEn: 'Victory', title: 'Trận Bạch Đằng 938', posts: '93K' },
+    { categoryVi: 'Kháng chiến', categoryEn: 'War', title: 'Điện Biên Phủ 1954', posts: '195K' },
+    { categoryVi: 'Thống nhất', categoryEn: 'Reunification', title: '30/4/1975', posts: '197K' },
   ];
 
   return (
-    <aside className="sticky top-0 h-screen w-[350px] px-6 py-4 hidden lg:block">
+    <aside className="sticky top-0 h-screen w-[350px] px-6 py-4 hidden lg:block overflow-y-auto scrollbar-none">
       {/* Trending Topics */}
-      <div className="bg-[#16181c] rounded-2xl overflow-hidden">
-        <h2 className="px-4 py-3 text-xl font-bold">Trending in History</h2>
+      <div className="glass-strong rounded-2xl overflow-hidden">
+        <h2 className="px-4 py-3 text-xl font-bold flex items-center gap-2">
+          <FireOutlined className="text-[#ff6b35]" />
+          {t('Xu hướng Lịch sử', 'Trending in History')}
+        </h2>
         
-        <div className="divide-y divide-[#2f3336]">
+        <div className="divide-y divide-white/10">
           {trendingTopics.map((topic) => (
             <button
               key={topic.title}
-              className="w-full px-4 py-3 text-left hover:bg-[#1d1f23] transition-colors"
+              className="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors"
             >
-              <p className="text-[13px] text-[#71767b]">{topic.category}</p>
+              <p className="text-[13px] text-[#71767b]">{t(topic.categoryVi, topic.categoryEn)}</p>
               <p className="font-bold">{topic.title}</p>
-              <p className="text-[13px] text-[#71767b]">{topic.posts} posts</p>
+              <p className="text-[13px] text-[#71767b]">{topic.posts} {t('bài viết', 'posts')}</p>
             </button>
           ))}
         </div>
 
-        <button className="w-full px-4 py-3 text-[#1d9bf0] hover:bg-[#1d1f23] transition-colors text-left">
-          Show more
+        <button className="w-full px-4 py-3 text-[#da251d] hover:bg-white/5 transition-colors text-left">
+          {t('Xem thêm', 'Show more')}
         </button>
       </div>
 
-      {/* Who to follow - Historical Figures */}
-      <div className="bg-[#16181c] rounded-2xl overflow-hidden mt-4">
-        <h2 className="px-4 py-3 text-xl font-bold">Figures to Follow</h2>
+      {/* Historical Figures to Follow */}
+      <div className="glass-strong rounded-2xl overflow-hidden mt-4">
+        <h2 className="px-4 py-3 text-xl font-bold flex items-center gap-2">
+          <CrownOutlined className="text-[#ffcd00]" />
+          {t('Nhân vật lịch sử', 'Historical Figures')}
+        </h2>
         
-        <div className="divide-y divide-[#2f3336]">
+        <div className="divide-y divide-white/10">
           {[
-            { name: 'Cleopatra', handle: '@queenofnile' },
-            { name: 'Napoleon', handle: '@emperor_nap' },
-            { name: 'Einstein', handle: '@relativity' },
+            { name: 'Trần Hưng Đạo', handle: '@tranhungdao', titleVi: 'Đại tướng', titleEn: 'General' },
+            { name: 'Quang Trung', handle: '@quangtrung', titleVi: 'Hoàng đế', titleEn: 'Emperor' },
+            { name: 'Hồ Chí Minh', handle: '@hochiminh', titleVi: 'Chủ tịch', titleEn: 'President' },
           ].map((figure) => (
             <div
               key={figure.handle}
-              className="px-4 py-3 flex items-center justify-between hover:bg-[#1d1f23] transition-colors"
+              className="px-4 py-3 flex items-center justify-between hover:bg-white/5 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1d9bf0] to-purple-500" />
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#da251d] to-[#ffcd00] animate-glow-pulse" />
                 <div>
                   <p className="font-bold flex items-center gap-1">
                     {figure.name}
-                    <BadgeCheck className="w-4 h-4 text-[#1d9bf0]" />
+                    <BadgeCheck className="w-4 h-4 text-[#da251d]" />
                   </p>
                   <p className="text-[#71767b] text-sm">{figure.handle}</p>
+                  <p className="text-[#71767b] text-xs">{t(figure.titleVi, figure.titleEn)}</p>
                 </div>
               </div>
-              <button className="px-4 py-1.5 bg-white text-black rounded-full font-bold text-sm hover:bg-gray-200 transition-colors">
-                Follow
+              <button className="px-4 py-1.5 glass glass-hover rounded-full font-bold text-sm transition-all hover:shadow-[0_0_15px_rgba(218,37,29,0.3)]">
+                {t('Theo dõi', 'Follow')}
               </button>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Search suggestions */}
+      <div className="mt-4 px-4 py-3 glass-strong rounded-2xl">
+        <h3 className="font-bold mb-2 flex items-center gap-2">
+          <BulbOutlined className="text-[#ffcd00]" />
+          {t('Gợi ý tìm kiếm', 'Try searching')}
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {['Quang Trung', 'Điện Biên Phủ', 'Hai Bà Trưng', t('Văn hóa', 'Culture')].map((tag) => (
+            <span key={tag} className="px-3 py-1 glass rounded-full text-sm text-[#71767b] hover:bg-white/10 cursor-pointer transition-colors">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom padding for scroll */}
+      <div className="h-8" />
     </aside>
   );
 }
 
 /**
- * Simple Post Card Component (Placeholder for Member 2)
+ * Simple Post Card Component
  */
 function PostCard({ post, index }: { post: SocialPost; index: number }) {
+  const { t } = useLanguage();
+  
   const formatNumber = (num: number): string => {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
     if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
@@ -170,34 +282,35 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
               {post.author.name}
             </span>
             {post.author.isVerified && (
-              <BadgeCheck className="w-[18px] h-[18px] text-[#1d9bf0] flex-shrink-0" />
+              <BadgeCheck className="w-[18px] h-[18px] text-[#da251d] flex-shrink-0" />
             )}
             <span className="text-[#71767b] truncate">
               {post.author.handle}
             </span>
             <span className="text-[#71767b]">·</span>
-            <span className="text-[#71767b] hover:underline cursor-pointer">
+            <span className="text-[#71767b] hover:underline cursor-pointer text-sm">
               {post.timestamp}
             </span>
-            <button className="ml-auto p-2 hover:bg-[#1d9bf0]/10 hover:text-[#1d9bf0] rounded-full transition-colors">
+            <button className="ml-auto p-2 hover:bg-[#da251d]/10 hover:text-[#da251d] rounded-full transition-colors">
               <MoreHorizontal className="w-[18px] h-[18px]" />
             </button>
           </div>
 
           {/* Post type badge */}
           {post.type === 'news' && (
-            <span className="inline-block px-2 py-0.5 mb-2 text-xs font-bold bg-red-500/20 text-red-400 rounded">
-              BREAKING NEWS
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 mb-2 text-xs font-bold bg-red-500/20 text-red-400 rounded glass">
+              <AlertOutlined />
+              {t('TIN NÓNG', 'BREAKING NEWS')}
             </span>
           )}
           {post.type === 'reply' && (
             <span className="inline-block text-[#71767b] text-sm mb-1">
-              Replying to <span className="text-[#1d9bf0]">@historical_figure</span>
+              {t('Trả lời', 'Replying to')} <span className="text-[#da251d]">@lichsu_vn</span>
             </span>
           )}
 
           {/* Content */}
-          <p className="text-[15px] leading-normal whitespace-pre-wrap break-words">
+          <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words">
             {post.content}
           </p>
 
@@ -231,8 +344,8 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
             </button>
 
             <button className="flex items-center gap-1 group">
-              <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10 transition-colors">
-                <TrendingUp className="w-[18px] h-[18px] text-[#71767b] group-hover:text-[#1d9bf0]" />
+              <div className="p-2 rounded-full group-hover:bg-[#da251d]/10 transition-colors">
+                <TrendingUp className="w-[18px] h-[18px] text-[#71767b] group-hover:text-[#da251d]" />
               </div>
             </button>
           </div>
@@ -246,19 +359,23 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
  * Loading Skeleton Component
  */
 function LoadingSkeleton() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4">
       <div className="relative">
-        <Clock className="w-12 h-12 text-[#1d9bf0] animate-pulse-glow" />
-        <Sparkles className="w-5 h-5 text-purple-500 absolute -top-1 -right-1 animate-bounce" />
+        <div className="w-16 h-16 rounded-full glass-vietnam animate-liquid flex items-center justify-center">
+          <HistoryOutlined className="text-3xl text-[#da251d]" />
+        </div>
+        <StarOutlined className="text-xl text-[#ffcd00] absolute -top-1 -right-1 animate-bounce" />
       </div>
       <p className="text-xl font-medium text-[#71767b] animate-pulse">
-        Generating History...
+        {t('Đang tạo lịch sử...', 'Generating History...')}
       </p>
       <div className="flex gap-2">
-        <div className="w-2 h-2 rounded-full bg-[#1d9bf0] animate-bounce" style={{ animationDelay: '0ms' }} />
-        <div className="w-2 h-2 rounded-full bg-[#1d9bf0] animate-bounce" style={{ animationDelay: '150ms' }} />
-        <div className="w-2 h-2 rounded-full bg-[#1d9bf0] animate-bounce" style={{ animationDelay: '300ms' }} />
+        <div className="w-2 h-2 rounded-full bg-[#da251d] animate-bounce" style={{ animationDelay: '0ms' }} />
+        <div className="w-2 h-2 rounded-full bg-[#ffcd00] animate-bounce" style={{ animationDelay: '150ms' }} />
+        <div className="w-2 h-2 rounded-full bg-[#da251d] animate-bounce" style={{ animationDelay: '300ms' }} />
       </div>
     </div>
   );
@@ -268,12 +385,14 @@ function LoadingSkeleton() {
  * Error Display Component
  */
 function ErrorDisplay({ message }: { message: string }) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
-      <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center">
-        <span className="text-3xl">⚠️</span>
+      <div className="w-16 h-16 rounded-full glass flex items-center justify-center">
+        <WarningOutlined className="text-3xl text-red-400" />
       </div>
-      <p className="text-xl font-medium text-red-400">Something went wrong</p>
+      <p className="text-xl font-medium text-red-400">{t('Đã xảy ra lỗi', 'Something went wrong')}</p>
       <p className="text-[#71767b] max-w-sm">{message}</p>
     </div>
   );
@@ -283,16 +402,29 @@ function ErrorDisplay({ message }: { message: string }) {
  * Empty State Component
  */
 function EmptyState() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
-      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1d9bf0]/20 to-purple-500/20 flex items-center justify-center">
-        <Clock className="w-10 h-10 text-[#1d9bf0]" />
+      <div className="w-24 h-24 rounded-full glass-vietnam flex items-center justify-center animate-float">
+        <FlagOutlined className="text-5xl text-[#da251d]" />
       </div>
-      <h2 className="text-2xl font-bold">Travel Through Time</h2>
+      <h2 className="text-2xl font-bold text-gradient-vietnam">
+        {t('Khám Phá Lịch Sử Việt Nam', 'Explore Vietnamese History')}
+      </h2>
       <p className="text-[#71767b] max-w-sm">
-        Enter a historical topic above to see it reimagined as a social media feed. 
-        Try &quot;Roman Empire&quot;, &quot;Space Race&quot;, or &quot;French Revolution&quot;.
+        {t(
+          'Nhập một chủ đề lịch sử ở trên để xem nó được tái hiện như mạng xã hội hiện đại.',
+          'Enter a historical topic above to see it reimagined as a modern social media feed.'
+        )}
       </p>
+      <div className="flex flex-wrap justify-center gap-2 mt-4">
+        {['Quang Trung', 'Điện Biên Phủ', 'Hai Bà Trưng', '30/4/1975'].map((tag) => (
+          <span key={tag} className="px-3 py-1 glass rounded-full text-sm border border-white/10 hover:border-[#da251d]/50 hover:bg-[#da251d]/10 cursor-pointer transition-all">
+            {tag}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
@@ -301,8 +433,14 @@ function EmptyState() {
  * Main Feed Component
  */
 function MainFeed() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
-  const { state, generateFeed } = useFeedGenerator({ mockMode: true });
+  const { state, generateFeed, loadAllPosts } = useFeedGenerator({ mockMode: false });
+
+  // Load all posts on mount
+  useEffect(() => {
+    loadAllPosts();
+  }, [loadAllPosts]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -315,8 +453,17 @@ function MainFeed() {
     <main className="flex-1 max-w-2xl border-r border-[#2f3336] min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-black/80 border-b border-[#2f3336]">
-        <div className="px-4 py-3">
-          <h1 className="text-xl font-bold">Home</h1>
+        <div className="px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FlagOutlined className="text-2xl text-[#da251d]" />
+            <h1 className="text-xl font-bold">{t('Trang chủ', 'Home')}</h1>
+          </div>
+          
+          {/* Post Button */}
+          <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#da251d] to-[#ff6b35] text-white rounded-full font-bold text-sm hover:opacity-90 hover:shadow-[0_0_20px_rgba(218,37,29,0.4)] transition-all active:scale-95">
+            <EditOutlined className="text-lg" />
+            {t('Đăng bài', 'Post')}
+          </button>
         </div>
 
         {/* Search Input */}
@@ -327,16 +474,16 @@ function MainFeed() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search historical topics..."
-              className="w-full bg-[#202327] rounded-full py-3 pl-12 pr-4 text-[15px] placeholder-[#71767b] focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:bg-black transition-colors"
+              placeholder={t('Tìm kiếm lịch sử Việt Nam...', 'Search Vietnamese history...')}
+              className="w-full glass rounded-full py-3 pl-12 pr-32 text-[15px] placeholder-[#71767b] focus:outline-none focus:ring-2 focus:ring-[#da251d] transition-all"
             />
             <button
               type="submit"
               disabled={!searchQuery.trim() || state.status === 'loading'}
-              className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-[#1d9bf0] text-white rounded-full font-bold text-sm hover:bg-[#1a8cd8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-[#da251d] to-[#ff6b35] text-white rounded-full font-bold text-sm hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:shadow-[0_0_20px_rgba(218,37,29,0.4)]"
             >
               <Sparkles className="w-4 h-4 inline-block mr-1" />
-              Generate
+              {t('Tạo', 'Generate')}
             </button>
           </div>
         </form>
@@ -349,7 +496,7 @@ function MainFeed() {
         {state.status === 'loading' && <LoadingSkeleton />}
         
         {state.status === 'error' && (
-          <ErrorDisplay message={state.error || 'An unknown error occurred'} />
+          <ErrorDisplay message={state.error || t('Đã xảy ra lỗi không xác định', 'An unknown error occurred')} />
         )}
         
         {state.status === 'success' && (
@@ -357,7 +504,10 @@ function MainFeed() {
             {/* Results header */}
             <div className="px-4 py-3 border-b border-[#2f3336]">
               <p className="text-[#71767b] text-sm">
-                Showing {state.data.length} historical posts
+                {t(
+                  `Hiển thị ${state.data.length} bài viết lịch sử`,
+                  `Showing ${state.data.length} historical posts`
+                )}
               </p>
             </div>
             

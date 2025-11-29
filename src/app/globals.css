@@ -5,8 +5,9 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --accent: #1d9bf0;
-  --accent-hover: #1a8cd8;
+  --accent: #da251d;
+  --accent-secondary: #ffcd00;
+  --accent-hover: #b81f18;
   --border: #2f3336;
   --secondary: #71767b;
   --surface: #16181c;
@@ -77,6 +78,42 @@ body {
   }
 }
 
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes liquid-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(218, 37, 29, 0.4), 0 0 40px rgba(255, 205, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(218, 37, 29, 0.6), 0 0 60px rgba(255, 205, 0, 0.3);
+  }
+}
+
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
@@ -96,6 +133,57 @@ body {
   animation: shimmer 1.5s infinite;
 }
 
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-liquid {
+  animation: liquid-morph 8s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Liquid Glass Effect Classes */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-vietnam {
+  background: linear-gradient(
+    135deg,
+    rgba(218, 37, 29, 0.1) 0%,
+    rgba(255, 205, 0, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(218, 37, 29, 0.2);
+}
+
 /* Utility classes */
 @layer utilities {
   .text-balance {
@@ -109,5 +197,23 @@ body {
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .text-gradient-vietnam {
+    background: linear-gradient(135deg, #da251d 0%, #ffcd00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

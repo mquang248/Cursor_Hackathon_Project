@@ -73,3 +73,104 @@ export interface GenerateFeedResponse {
   error?: string;
 }
 
+/**
+ * Like action request
+ */
+export interface LikeRequest {
+  postId: string;
+  odId: string;
+  action: 'like' | 'unlike';
+}
+
+/**
+ * Like response
+ */
+export interface LikeResponse {
+  success: boolean;
+  data?: {
+    postId: string;
+    likes: number;
+    isLiked: boolean;
+  };
+  error?: string;
+}
+
+/**
+ * Comment request
+ */
+export interface CommentRequest {
+  postId: string;
+  userId: string;
+  userName?: string;
+  userHandle?: string;
+  userAvatar?: string;
+  content: string;
+}
+
+/**
+ * Comment data
+ */
+export interface CommentData {
+  _id: string;
+  postId: string;
+  userId: string;
+  userName: string;
+  userHandle: string;
+  userAvatar: string;
+  content: string;
+  likes: number;
+  createdAt: string;
+}
+
+/**
+ * Notification types
+ */
+export type NotificationType = 'like' | 'comment' | 'retweet' | 'mention' | 'follow' | 'system';
+
+/**
+ * Notification data
+ */
+export interface NotificationData {
+  _id: string;
+  userId: string;
+  type: NotificationType;
+  title: string;
+  titleEn: string;
+  message: string;
+  messageEn: string;
+  postId?: string;
+  fromUserId?: string;
+  fromUserName?: string;
+  fromUserAvatar?: string;
+  isRead: boolean;
+  createdAt: string;
+}
+
+/**
+ * User statistics
+ */
+export interface UserStatsData {
+  odId: string;
+  sessionId: string;
+  totalLikes: number;
+  totalComments: number;
+  totalRetweets: number;
+  topicsExplored: string[];
+  lastActive: string;
+}
+
+/**
+ * Global statistics
+ */
+export interface GlobalStats {
+  totalPosts: number;
+  totalComments: number;
+  totalLikes: number;
+  totalRetweets: number;
+  topTopics: Array<{
+    _id: string;
+    count: number;
+    totalLikes: number;
+  }>;
+}
+
