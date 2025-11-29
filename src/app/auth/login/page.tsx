@@ -48,7 +48,7 @@ export default function LoginPage() {
             <HistoryOutlined className="text-3xl text-[#da251d]" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-[#da251d] to-[#ffcd00] bg-clip-text text-transparent">
-            ChronoFeed
+            {t('Việt Sử Ký', 'VietChronicle')}
           </h1>
           <p className="text-[#71767b] mt-2">
             {t('Đăng nhập vào tài khoản', 'Sign in to your account')}

@@ -120,7 +120,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateF
 export async function GET(): Promise<NextResponse> {
   return NextResponse.json({
     status: 'ok',
-    message: 'ChronoFeed API đang hoạt động / ChronoFeed API is running',
+    message: 'Việt Sử Ký / VietChronicle API đang hoạt động - API is running',
     version: '1.0.0',
     description: 'Lịch Sử Việt Nam / Vietnamese History',
   });

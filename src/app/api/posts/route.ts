@@ -34,6 +34,12 @@ export async function GET(request: NextRequest) {
       ];
     }
 
+    // Filter by author handle (for user timeline)
+    const authorHandle = searchParams.get('authorHandle');
+    if (authorHandle) {
+      query.authorHandle = authorHandle;
+    }
+
     // Determine sort order
     const sortOptions: Record<string, -1 | 1> = {};
     switch (sortBy) {
@@ -66,7 +72,7 @@ export async function GET(request: NextRequest) {
       author: {
         name: post.authorName,
         handle: post.authorHandle,
-        avatarUrl: `https://api.dicebear.com/7.x/personas/svg?seed=${post.authorHandle.replace('@', '')}`,
+        avatarUrl: post.authorAvatarUrl || `https://api.dicebear.com/7.x/personas/svg?seed=${post.authorHandle.replace('@', '')}`,
         isVerified: true,
       },
       content: post.content,
@@ -78,6 +84,7 @@ export async function GET(request: NextRequest) {
       },
       type: post.type,
       topic: post.topic,
+      imageUrl: post.imageUrl || null,
     }));
 
     return NextResponse.json({
@@ -108,7 +115,7 @@ export async function POST(request: NextRequest) {
     await connectDB();
     
     const body = await request.json();
-    const { postId, topic, authorName, authorHandle, content, timestamp, type } = body;
+    const { postId, topic, authorName, authorHandle, content, timestamp, type, imageUrl } = body;
 
     if (!postId || !content) {
       return NextResponse.json(
@@ -125,6 +132,7 @@ export async function POST(request: NextRequest) {
       content,
       timestamp: timestamp || new Date().toISOString(),
       type: type || 'post',
+      imageUrl: imageUrl || null,
       likes: 0,
       retweets: 0,
       replies: 0,
@@ -145,3 +153,117 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * PUT /api/posts
+ * Update an existing post
+ */
+export async function PUT(request: NextRequest) {
+  try {
+    await connectDB();
+    
+    const body = await request.json();
+    const { postId, content, topic, timestamp, imageUrl, authorHandle } = body;
+
+    if (!postId) {
+      return NextResponse.json(
+        { success: false, error: 'postId là bắt buộc / postId is required' },
+        { status: 400 }
+      );
+    }
+
+    // Find the post
+    const post = await Post.findOne({ postId });
+
+    if (!post) {
+      return NextResponse.json(
+        { success: false, error: 'Không tìm thấy bài viết / Post not found' },
+        { status: 404 }
+      );
+    }
+
+    // Check if the user is the author
+    if (post.authorHandle !== authorHandle) {
+      return NextResponse.json(
+        { success: false, error: 'Bạn không có quyền sửa bài viết này / You are not authorized to edit this post' },
+        { status: 403 }
+      );
+    }
+
+    // Update the post
+    const updateData: Record<string, unknown> = {};
+    if (content !== undefined) updateData.content = content;
+    if (topic !== undefined) updateData.topic = topic;
+    if (timestamp !== undefined) updateData.timestamp = timestamp;
+    if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+    updateData.updatedAt = new Date();
+
+    const updatedPost = await Post.findOneAndUpdate(
+      { postId },
+      { $set: updateData },
+      { new: true }
+    );
+
+    return NextResponse.json({
+      success: true,
+      data: updatedPost,
+    });
+  } catch (error) {
+    console.error('Posts PUT API Error:', error);
+    return NextResponse.json(
+      { success: false, error: 'Lỗi cập nhật bài viết / Error updating post' },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * DELETE /api/posts
+ * Delete a post
+ */
+export async function DELETE(request: NextRequest) {
+  try {
+    await connectDB();
+    
+    const { searchParams } = new URL(request.url);
+    const postId = searchParams.get('postId');
+    const authorHandle = searchParams.get('authorHandle');
+
+    if (!postId || !authorHandle) {
+      return NextResponse.json(
+        { success: false, error: 'postId và authorHandle là bắt buộc / postId and authorHandle are required' },
+        { status: 400 }
+      );
+    }
+
+    // Find the post
+    const post = await Post.findOne({ postId });
+
+    if (!post) {
+      return NextResponse.json(
+        { success: false, error: 'Không tìm thấy bài viết / Post not found' },
+        { status: 404 }
+      );
+    }
+
+    // Check if the user is the author
+    if (post.authorHandle !== authorHandle) {
+      return NextResponse.json(
+        { success: false, error: 'Bạn không có quyền xóa bài viết này / You are not authorized to delete this post' },
+        { status: 403 }
+      );
+    }
+
+    await Post.deleteOne({ postId });
+
+    return NextResponse.json({
+      success: true,
+      message: 'Đã xóa bài viết / Post deleted successfully',
+    });
+  } catch (error) {
+    console.error('Posts DELETE API Error:', error);
+    return NextResponse.json(
+      { success: false, error: 'Lỗi xóa bài viết / Error deleting post' },
+      { status: 500 }
+    );
+  }
+}

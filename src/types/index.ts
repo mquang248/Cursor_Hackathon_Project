@@ -1,8 +1,8 @@
 /**
- * ChronoFeed - Data Contracts
+ * Việt Sử Ký - Data Contracts
  * Single source of truth for all TypeScript interfaces
  * 
- * @author ChronoFeed Team
+ * @author Việt Sử Ký Team
  * @version 1.0.0
  */
 
@@ -41,6 +41,7 @@ export interface SocialPost {
   timestamp: string; // e.g., "2 hours ago" or specific historical date like "July 4, 1776"
   stats: PostStats;
   type: PostType;
+  imageUrl?: string; // Optional image URL for the post
 }
 
 /**

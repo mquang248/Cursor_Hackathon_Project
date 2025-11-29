@@ -64,7 +64,7 @@ export default function RegisterPage() {
             <HistoryOutlined className="text-3xl text-[#da251d]" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-[#da251d] to-[#ffcd00] bg-clip-text text-transparent">
-            ChronoFeed
+            {t('Việt Sử Ký', 'VietChronicle')}
           </h1>
           <p className="text-[#71767b] mt-2">
             {t('Tạo tài khoản mới', 'Create a new account')}

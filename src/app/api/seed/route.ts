@@ -7,6 +7,7 @@ interface EventData {
   id: string;
   authorName: string;
   authorHandle: string;
+  avatarUrl: string | null;
   content: string;
   timestamp: string;
   topic: string;
@@ -25,11 +26,12 @@ export async function POST() {
     await Post.deleteMany({});
 
     // Transform events data to posts
-    const posts = (eventsData as EventData[]).map((event, index) => ({
+    const posts = (eventsData as EventData[]).map((event) => ({
       postId: `vn-${event.id}`,
       topic: event.topic,
       authorName: event.authorName,
       authorHandle: event.authorHandle,
+      authorAvatarUrl: event.avatarUrl,
       content: event.content,
       timestamp: event.timestamp,
       type: event.type,
@@ -40,9 +42,13 @@ export async function POST() {
       retweetedBy: [],
     }));
 
+    // Log để debug
+    console.log('Posts to insert:', JSON.stringify(posts.slice(0, 2), null, 2));
+
     const insertedPosts = await Post.insertMany(posts);
 
     console.log(`✅ Seeded ${insertedPosts.length} posts from events.json`);
+    console.log('First post avatarUrl:', insertedPosts[0]?.authorAvatarUrl);
 
     const topics = [...new Set(posts.map(p => p.topic))];
 
@@ -97,3 +103,5 @@ export async function GET() {
     );
   }
 }
+
+

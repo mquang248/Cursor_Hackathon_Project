@@ -8,9 +8,11 @@ export interface IPost extends Document {
   topic: string;
   authorName: string;
   authorHandle: string;
+  authorAvatarUrl?: string;
   content: string;
   timestamp: string;
   type: 'post' | 'reply' | 'news';
+  imageUrl?: string;
   likes: number;
   retweets: number;
   replies: number;
@@ -41,6 +43,10 @@ const PostSchema = new Schema<IPost>(
       type: String,
       required: true,
     },
+    authorAvatarUrl: {
+      type: String,
+      default: null,
+    },
     content: {
       type: String,
       required: true,
@@ -53,6 +59,10 @@ const PostSchema = new Schema<IPost>(
       type: String,
       enum: ['post', 'reply', 'news'],
       default: 'post',
+    },
+    imageUrl: {
+      type: String,
+      default: null,
     },
     likes: {
       type: Number,
