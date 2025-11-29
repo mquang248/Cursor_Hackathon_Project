@@ -1,0 +1,75 @@
+[
+  {
+    "id": "post-001",
+    "eventId": "event-001",
+    "authorName": "Nguyễn Văn An",
+    "title": "Ý nghĩa lịch sử của Tuyên ngôn Độc lập 2/9/1945",
+    "previewText": "Tuyên ngôn Độc lập không chỉ là văn kiện pháp lý quan trọng mà còn là biểu tượng của ý chí độc lập, tự do của dân tộc Việt Nam...",
+    "imageUrl": "https://example.com/images/post-tuyen-ngon.jpg",
+    "createdAt": "2024-08-15T10:30:00Z"
+  },
+  {
+    "id": "post-002",
+    "eventId": "event-001",
+    "authorName": "Trần Thị Bình",
+    "title": "Hồ Chí Minh và hành trình đến Quảng trường Ba Đình",
+    "previewText": "Câu chuyện về những ngày tháng trước khi Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập, những quyết định lịch sử...",
+    "imageUrl": "https://example.com/images/post-ho-chi-minh.jpg",
+    "createdAt": "2024-09-02T08:00:00Z"
+  },
+  {
+    "id": "post-003",
+    "eventId": "event-002",
+    "authorName": "Lê Văn Cường",
+    "title": "Chiến thắng Điện Biên Phủ: Nhìn lại sau 70 năm",
+    "previewText": "Chiến thắng Điện Biên Phủ là một trong những thắng lợi quân sự vĩ đại nhất trong lịch sử Việt Nam, đánh dấu sự kết thúc của chủ nghĩa thực dân...",
+    "imageUrl": "https://example.com/images/post-dien-bien-phu-1.jpg",
+    "createdAt": "2024-05-07T14:20:00Z"
+  },
+  {
+    "id": "post-004",
+    "eventId": "event-002",
+    "authorName": "Phạm Thị Dung",
+    "title": "Đại tướng Võ Nguyên Giáp và nghệ thuật quân sự tại Điện Biên Phủ",
+    "previewText": "Phân tích chiến lược và chiến thuật của Đại tướng Võ Nguyên Giáp trong chiến dịch Điện Biên Phủ, những quyết định then chốt...",
+    "imageUrl": "https://example.com/images/post-vo-nguyen-giap.jpg",
+    "createdAt": "2024-05-10T16:45:00Z"
+  },
+  {
+    "id": "post-005",
+    "eventId": "event-003",
+    "authorName": "Hoàng Văn Đức",
+    "title": "Tết Mậu Thân 1968: Bước ngoặt của cuộc kháng chiến",
+    "previewText": "Cuộc Tổng tiến công và nổi dậy Tết Mậu Thân đã làm thay đổi hoàn toàn cục diện chiến tranh, buộc Mỹ phải thay đổi chiến lược...",
+    "imageUrl": "https://example.com/images/post-tet-mau-than-1.jpg",
+    "createdAt": "2024-01-30T09:15:00Z"
+  },
+  {
+    "id": "post-006",
+    "eventId": "event-003",
+    "authorName": "Vũ Thị Em",
+    "title": "Những câu chuyện chưa kể về Tết Mậu Thân 1968",
+    "previewText": "Khám phá những góc nhìn mới, những câu chuyện cá nhân của những người tham gia cuộc Tổng tiến công Tết Mậu Thân...",
+    "imageUrl": "https://example.com/images/post-tet-mau-than-2.jpg",
+    "createdAt": "2024-02-05T11:30:00Z"
+  },
+  {
+    "id": "post-007",
+    "eventId": "event-004",
+    "authorName": "Đặng Văn Phong",
+    "title": "30/4/1975: Ngày lịch sử thống nhất đất nước",
+    "previewText": "Nhìn lại hành trình 21 năm kháng chiến chống Mỹ, từ những ngày đầu gian khó đến ngày thống nhất đất nước...",
+    "imageUrl": "https://example.com/images/post-30-4-1.jpg",
+    "createdAt": "2024-04-30T07:00:00Z"
+  },
+  {
+    "id": "post-008",
+    "eventId": "event-005",
+    "authorName": "Bùi Thị Giang",
+    "title": "Đổi mới 1986: Hành trình 35 năm phát triển",
+    "previewText": "Từ một nền kinh tế khó khăn, Việt Nam đã vươn lên trở thành một trong những nền kinh tế phát triển nhanh nhất thế giới nhờ chính sách Đổi mới...",
+    "imageUrl": "https://example.com/images/post-doi-moi.jpg",
+    "createdAt": "2024-12-18T13:25:00Z"
+  }
+]
+

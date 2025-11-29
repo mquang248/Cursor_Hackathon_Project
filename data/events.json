@@ -1,0 +1,128 @@
+[
+  {
+    "id": "event-001",
+    "title": "Tuyên ngôn Độc lập 2/9/1945",
+    "period": "1945",
+    "summary": "Ngày 2 tháng 9 năm 1945, tại Quảng trường Ba Đình, Hà Nội, Chủ tịch Hồ Chí Minh đã đọc bản Tuyên ngôn Độc lập, khai sinh ra nước Việt Nam Dân chủ Cộng hòa, chấm dứt hơn 80 năm đô hộ của thực dân Pháp và phát xít Nhật.",
+    "timeline": [
+      { "year": 1940, "event": "Phát xít Nhật xâm lược Đông Dương" },
+      { "year": 1945, "event": "Nhật đảo chính Pháp tháng 3" },
+      { "year": 1945, "event": "Cách mạng Tháng Tám thành công" },
+      { "year": 1945, "event": "Tuyên ngôn Độc lập được công bố ngày 2/9" }
+    ],
+    "keyFigures": [
+      { "name": "Hồ Chí Minh", "role": "Chủ tịch nước, người đọc Tuyên ngôn Độc lập" },
+      { "name": "Võ Nguyên Giáp", "role": "Bộ trưởng Bộ Nội vụ" },
+      { "name": "Trường Chinh", "role": "Tổng Bí thư Đảng Cộng sản Đông Dương" }
+    ],
+    "causes": "Sau khi Nhật đầu hàng Đồng minh, tạo cơ hội cho Việt Minh giành chính quyền. Ách đô hộ của thực dân Pháp và phát xít Nhật đã gây ra nhiều đau khổ cho nhân dân Việt Nam, thúc đẩy phong trào đấu tranh giành độc lập.",
+    "impacts": "Khai sinh nước Việt Nam Dân chủ Cộng hòa, mở ra kỷ nguyên mới cho dân tộc Việt Nam. Tạo nền tảng pháp lý cho nền độc lập, tự do của Việt Nam. Là nguồn cảm hứng cho các phong trào giải phóng dân tộc khác trên thế giới.",
+    "imageUrl": "https://example.com/images/tuyen-ngon-doc-lap.jpg",
+    "tags": ["Độc lập", "Cách mạng", "Hồ Chí Minh", "1945", "Lịch sử Việt Nam"],
+    "sources": [
+      { "sourceName": "Bảo tàng Lịch sử Quốc gia", "url": "https://baotanglichsu.vn", "type": "Museum" },
+      { "sourceName": "Wikipedia - Tuyên ngôn Độc lập Việt Nam", "url": "https://vi.wikipedia.org/wiki/Tuyên_ngôn_Độc_lập_Việt_Nam", "type": "Encyclopedia" }
+    ]
+  },
+  {
+    "id": "event-002",
+    "title": "Chiến thắng Điện Biên Phủ 1954",
+    "period": "1954",
+    "summary": "Chiến thắng Điện Biên Phủ ngày 7 tháng 5 năm 1954 là thắng lợi quyết định của quân đội Việt Nam trong cuộc kháng chiến chống thực dân Pháp, buộc Pháp phải ký Hiệp định Geneva và rút quân khỏi Đông Dương.",
+    "timeline": [
+      { "year": 1953, "event": "Pháp xây dựng tập đoàn cứ điểm Điện Biên Phủ" },
+      { "year": 1954, "event": "Quân đội Việt Nam bao vây Điện Biên Phủ từ tháng 3" },
+      { "year": 1954, "event": "Chiến dịch Điện Biên Phủ bắt đầu ngày 13/3" },
+      { "year": 1954, "event": "Tướng De Castries đầu hàng ngày 7/5" }
+    ],
+    "keyFigures": [
+      { "name": "Võ Nguyên Giáp", "role": "Đại tướng, Tổng Tư lệnh quân đội" },
+      { "name": "Hoàng Văn Thái", "role": "Tham mưu trưởng chiến dịch" },
+      { "name": "Christian de Castries", "role": "Tư lệnh tập đoàn cứ điểm Pháp" }
+    ],
+    "causes": "Pháp muốn tạo một tập đoàn cứ điểm mạnh ở Điện Biên Phủ để thu hút và tiêu diệt chủ lực quân đội Việt Nam. Việt Nam quyết định chấp nhận thách thức này để giành thắng lợi quyết định.",
+    "impacts": "Buộc Pháp phải ký Hiệp định Geneva, chấm dứt chiến tranh Đông Dương lần thứ nhất. Chấm dứt ách thống trị của thực dân Pháp tại Việt Nam. Khẳng định sức mạnh của quân đội và nhân dân Việt Nam. Là nguồn cảm hứng cho các phong trào giải phóng dân tộc.",
+    "imageUrl": "https://example.com/images/dien-bien-phu.jpg",
+    "tags": ["Chiến tranh", "Điện Biên Phủ", "1954", "Kháng chiến", "Quân sự"],
+    "sources": [
+      { "sourceName": "Bảo tàng Chiến thắng Điện Biên Phủ", "url": "https://baotangdienbienphu.vn", "type": "Museum" },
+      { "sourceName": "Lịch sử Quân sự Việt Nam", "url": "https://example.com/lich-su-quan-su", "type": "Academic" }
+    ]
+  },
+  {
+    "id": "event-003",
+    "title": "Tổng tiến công và nổi dậy Tết Mậu Thân 1968",
+    "period": "1968",
+    "summary": "Cuộc Tổng tiến công và nổi dậy Tết Mậu Thân 1968 là một trong những sự kiện quan trọng nhất trong cuộc kháng chiến chống Mỹ, diễn ra đồng loạt tại nhiều thành phố miền Nam, gây chấn động lớn và làm thay đổi cục diện chiến tranh.",
+    "timeline": [
+      { "year": 1967, "event": "Chuẩn bị cho cuộc tổng tiến công" },
+      { "year": 1968, "event": "Cuộc tấn công bắt đầu đêm 30/1 (Tết Mậu Thân)" },
+      { "year": 1968, "event": "Giai đoạn 1: Tấn công các thành phố lớn" },
+      { "year": 1968, "event": "Giai đoạn 2 và 3 tiếp tục đến tháng 9" }
+    ],
+    "keyFigures": [
+      { "name": "Lê Duẩn", "role": "Bí thư thứ nhất Ban Chấp hành Trung ương Đảng" },
+      { "name": "Võ Nguyên Giáp", "role": "Bộ trưởng Bộ Quốc phòng" },
+      { "name": "Nguyễn Văn Linh", "role": "Bí thư Trung ương Cục miền Nam" }
+    ],
+    "causes": "Nhằm phá vỡ thế bế tắc trên chiến trường, tạo bước ngoặt trong cuộc kháng chiến. Mục tiêu là giành thắng lợi quyết định, buộc Mỹ phải xuống thang chiến tranh và ngồi vào bàn đàm phán.",
+    "impacts": "Làm thay đổi nhận thức của dư luận Mỹ về cuộc chiến, tăng cường phong trào phản chiến. Buộc Mỹ phải bắt đầu đàm phán hòa bình tại Paris. Chứng minh sức mạnh và khả năng của quân giải phóng. Tạo tiền đề cho các thắng lợi tiếp theo.",
+    "imageUrl": "https://example.com/images/tet-mau-than.jpg",
+    "tags": ["Tết Mậu Thân", "1968", "Kháng chiến chống Mỹ", "Chiến tranh", "Lịch sử"],
+    "sources": [
+      { "sourceName": "Viện Lịch sử Quân sự Việt Nam", "url": "https://example.com/vien-lich-su", "type": "Academic" },
+      { "sourceName": "Bảo tàng Lịch sử Quân sự", "url": "https://example.com/baotang-quansu", "type": "Museum" }
+    ]
+  },
+  {
+    "id": "event-004",
+    "title": "Ngày thống nhất đất nước 30/4/1975",
+    "period": "1975",
+    "summary": "Ngày 30 tháng 4 năm 1975, quân giải phóng tiến vào Sài Gòn, Tổng thống Dương Văn Minh tuyên bố đầu hàng vô điều kiện, chấm dứt cuộc kháng chiến chống Mỹ kéo dài 21 năm, thống nhất đất nước sau hơn 20 năm bị chia cắt.",
+    "timeline": [
+      { "year": 1975, "event": "Chiến dịch Tây Nguyên tháng 3" },
+      { "year": 1975, "event": "Giải phóng Huế và Đà Nẵng tháng 3" },
+      { "year": 1975, "event": "Chiến dịch Hồ Chí Minh bắt đầu 26/4" },
+      { "year": 1975, "event": "Giải phóng hoàn toàn miền Nam 30/4" }
+    ],
+    "keyFigures": [
+      { "name": "Văn Tiến Dũng", "role": "Tư lệnh Chiến dịch Hồ Chí Minh" },
+      { "name": "Lê Đức Anh", "role": "Tư lệnh Quân đoàn 2" },
+      { "name": "Dương Văn Minh", "role": "Tổng thống cuối cùng của Việt Nam Cộng hòa" }
+    ],
+    "causes": "Sau nhiều năm kháng chiến, quân và dân Việt Nam đã tạo được thế và lực mạnh mẽ. Sự suy yếu của chính quyền Sài Gòn và sự rút lui của quân Mỹ tạo cơ hội để giành thắng lợi cuối cùng.",
+    "impacts": "Thống nhất đất nước sau hơn 20 năm chia cắt. Chấm dứt cuộc chiến tranh kéo dài, mở ra thời kỳ hòa bình và xây dựng đất nước. Khẳng định chủ quyền và độc lập của Việt Nam. Là một trong những sự kiện quan trọng nhất trong lịch sử Việt Nam thế kỷ 20.",
+    "imageUrl": "https://example.com/images/30-4-1975.jpg",
+    "tags": ["30/4/1975", "Thống nhất", "Giải phóng", "Chiến tranh", "Lịch sử Việt Nam"],
+    "sources": [
+      { "sourceName": "Bảo tàng Lịch sử Quốc gia", "url": "https://baotanglichsu.vn", "type": "Museum" },
+      { "sourceName": "Bảo tàng Chứng tích Chiến tranh", "url": "https://baotangchungtichchientranh.vn", "type": "Museum" }
+    ]
+  },
+  {
+    "id": "event-005",
+    "title": "Đổi mới 1986",
+    "period": "1986",
+    "summary": "Đại hội Đảng lần thứ VI năm 1986 đánh dấu bước ngoặt quan trọng với chính sách Đổi mới, chuyển từ nền kinh tế kế hoạch hóa tập trung sang nền kinh tế thị trường định hướng xã hội chủ nghĩa, mở ra thời kỳ phát triển mới cho Việt Nam.",
+    "timeline": [
+      { "year": 1986, "event": "Đại hội Đảng VI thông qua đường lối Đổi mới" },
+      { "year": 1987, "event": "Luật Đầu tư nước ngoài được ban hành" },
+      { "year": 1989, "event": "Bãi bỏ chế độ tem phiếu" },
+      { "year": 1990, "event": "Thị trường chứng khoán được thành lập" }
+    ],
+    "keyFigures": [
+      { "name": "Nguyễn Văn Linh", "role": "Tổng Bí thư Đảng, người khởi xướng Đổi mới" },
+      { "name": "Võ Văn Kiệt", "role": "Thủ tướng, người thực hiện chính sách Đổi mới" },
+      { "name": "Đỗ Mười", "role": "Tổng Bí thư, tiếp tục đường lối Đổi mới" }
+    ],
+    "causes": "Nền kinh tế kế hoạch hóa tập trung gặp nhiều khó khăn, lạm phát cao, đời sống nhân dân khó khăn. Cần có sự thay đổi để phát triển kinh tế, nâng cao đời sống nhân dân và hội nhập với thế giới.",
+    "impacts": "Chuyển đổi nền kinh tế từ kế hoạch hóa sang thị trường, tạo động lực phát triển mạnh mẽ. Thu hút đầu tư nước ngoài, phát triển kinh tế tư nhân. Cải thiện đời sống nhân dân, xóa đói giảm nghèo. Mở cửa hội nhập quốc tế, đưa Việt Nam trở thành một trong những nền kinh tế phát triển nhanh nhất thế giới.",
+    "imageUrl": "https://example.com/images/doi-moi-1986.jpg",
+    "tags": ["Đổi mới", "1986", "Kinh tế", "Cải cách", "Phát triển"],
+    "sources": [
+      { "sourceName": "Văn kiện Đại hội Đảng VI", "url": "https://example.com/van-kien-dang", "type": "Official Document" },
+      { "sourceName": "Viện Kinh tế Việt Nam", "url": "https://example.com/vien-kinh-te", "type": "Academic" }
+    ]
+  }
+]
+
