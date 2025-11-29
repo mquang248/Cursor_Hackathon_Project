@@ -2,29 +2,30 @@
 
 import { useState, FormEvent } from 'react';
 import {
-  Home,
-  Compass,
-  Clock,
-  Search,
-  Sparkles,
-  TrendingUp,
-  Heart,
-  Repeat2,
-  MessageCircle,
-  MoreHorizontal,
-  BadgeCheck,
-} from 'lucide-react';
+  HomeOutlined,
+  CompassOutlined,
+  ClockCircleOutlined,
+  SearchOutlined,
+  ThunderboltOutlined,
+  RiseOutlined,
+  HeartOutlined,
+  SwapOutlined,
+  MessageOutlined,
+  MoreOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons';
 import { useFeedGenerator } from '@/hooks/useFeedGenerator';
 import type { SocialPost } from '@/types';
+import PhotoPostModal from '@/components/PhotoPostModal';
 
 /**
  * Left Sidebar Navigation Component
  */
-function LeftSidebar() {
+function LeftSidebar({ onPostClick }: { onPostClick: () => void }) {
   const navItems = [
-    { icon: Home, label: 'Home', active: true },
-    { icon: Compass, label: 'Explore', active: false },
-    { icon: Clock, label: 'Timeline', active: false },
+    { icon: HomeOutlined, label: 'Home', active: true },
+    { icon: CompassOutlined, label: 'Explore', active: false },
+    { icon: ClockCircleOutlined, label: 'Timeline', active: false },
   ];
 
   return (
@@ -32,7 +33,7 @@ function LeftSidebar() {
       {/* Logo */}
       <div className="px-3 py-2 mb-4">
         <div className="flex items-center gap-2">
-          <Clock className="w-8 h-8 text-[#1d9bf0]" />
+          <ClockCircleOutlined className="w-8 h-8 text-[#1d9bf0]" style={{ fontSize: '32px' }} />
           <span className="text-xl font-bold bg-gradient-to-r from-[#1d9bf0] to-purple-500 bg-clip-text text-transparent">
             ChronoFeed
           </span>
@@ -49,13 +50,23 @@ function LeftSidebar() {
                   item.active ? 'font-bold' : 'font-normal'
                 }`}
               >
-                <item.icon className="w-6 h-6" />
+                <item.icon style={{ fontSize: '24px' }} />
                 <span className="text-xl">{item.label}</span>
               </button>
             </li>
           ))}
         </ul>
       </nav>
+
+      {/* Post Button */}
+      <div className="px-3 py-2">
+        <button
+          onClick={onPostClick}
+          className="w-full bg-[#1d9bf0] hover:bg-[#1a8cd8] text-white font-bold py-3 px-4 rounded-full transition-colors text-lg"
+        >
+          Post
+        </button>
+      </div>
 
       {/* Footer */}
       <div className="px-3 py-4 text-sm text-[#71767b]">
@@ -121,7 +132,7 @@ function RightSidebar() {
                 <div>
                   <p className="font-bold flex items-center gap-1">
                     {figure.name}
-                    <BadgeCheck className="w-4 h-4 text-[#1d9bf0]" />
+                    <CheckCircleOutlined className="text-[#1d9bf0]" style={{ fontSize: '16px' }} />
                   </p>
                   <p className="text-[#71767b] text-sm">{figure.handle}</p>
                 </div>
@@ -170,7 +181,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
               {post.author.name}
             </span>
             {post.author.isVerified && (
-              <BadgeCheck className="w-[18px] h-[18px] text-[#1d9bf0] flex-shrink-0" />
+              <CheckCircleOutlined className="text-[#1d9bf0] flex-shrink-0" style={{ fontSize: '18px' }} />
             )}
             <span className="text-[#71767b] truncate">
               {post.author.handle}
@@ -180,7 +191,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
               {post.timestamp}
             </span>
             <button className="ml-auto p-2 hover:bg-[#1d9bf0]/10 hover:text-[#1d9bf0] rounded-full transition-colors">
-              <MoreHorizontal className="w-[18px] h-[18px]" />
+              <MoreOutlined style={{ fontSize: '18px' }} />
             </button>
           </div>
 
@@ -205,7 +216,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
           <div className="flex justify-between max-w-[425px] mt-3 -ml-2">
             <button className="flex items-center gap-1 group">
               <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10 transition-colors">
-                <MessageCircle className="w-[18px] h-[18px] text-[#71767b] group-hover:text-[#1d9bf0]" />
+                <MessageOutlined className="text-[#71767b] group-hover:text-[#1d9bf0]" style={{ fontSize: '18px' }} />
               </div>
               <span className="text-sm text-[#71767b] group-hover:text-[#1d9bf0]">
                 {formatNumber(post.stats.replies)}
@@ -214,7 +225,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
 
             <button className="flex items-center gap-1 group">
               <div className="p-2 rounded-full group-hover:bg-green-500/10 transition-colors">
-                <Repeat2 className="w-[18px] h-[18px] text-[#71767b] group-hover:text-green-500" />
+                <SwapOutlined className="text-[#71767b] group-hover:text-green-500" style={{ fontSize: '18px' }} />
               </div>
               <span className="text-sm text-[#71767b] group-hover:text-green-500">
                 {formatNumber(post.stats.retweets)}
@@ -223,7 +234,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
 
             <button className="flex items-center gap-1 group">
               <div className="p-2 rounded-full group-hover:bg-pink-500/10 transition-colors">
-                <Heart className="w-[18px] h-[18px] text-[#71767b] group-hover:text-pink-500" />
+                <HeartOutlined className="text-[#71767b] group-hover:text-pink-500" style={{ fontSize: '18px' }} />
               </div>
               <span className="text-sm text-[#71767b] group-hover:text-pink-500">
                 {formatNumber(post.stats.likes)}
@@ -232,7 +243,7 @@ function PostCard({ post, index }: { post: SocialPost; index: number }) {
 
             <button className="flex items-center gap-1 group">
               <div className="p-2 rounded-full group-hover:bg-[#1d9bf0]/10 transition-colors">
-                <TrendingUp className="w-[18px] h-[18px] text-[#71767b] group-hover:text-[#1d9bf0]" />
+                <RiseOutlined className="text-[#71767b] group-hover:text-[#1d9bf0]" style={{ fontSize: '18px' }} />
               </div>
             </button>
           </div>
@@ -249,8 +260,8 @@ function LoadingSkeleton() {
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4">
       <div className="relative">
-        <Clock className="w-12 h-12 text-[#1d9bf0] animate-pulse-glow" />
-        <Sparkles className="w-5 h-5 text-purple-500 absolute -top-1 -right-1 animate-bounce" />
+        <ClockCircleOutlined className="text-[#1d9bf0] animate-pulse-glow" style={{ fontSize: '48px' }} />
+        <ThunderboltOutlined className="text-purple-500 absolute -top-1 -right-1 animate-bounce" style={{ fontSize: '20px' }} />
       </div>
       <p className="text-xl font-medium text-[#71767b] animate-pulse">
         Generating History...
@@ -286,7 +297,7 @@ function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
       <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1d9bf0]/20 to-purple-500/20 flex items-center justify-center">
-        <Clock className="w-10 h-10 text-[#1d9bf0]" />
+        <ClockCircleOutlined className="text-[#1d9bf0]" style={{ fontSize: '40px' }} />
       </div>
       <h2 className="text-2xl font-bold">Travel Through Time</h2>
       <p className="text-[#71767b] max-w-sm">
@@ -322,7 +333,7 @@ function MainFeed() {
         {/* Search Input */}
         <form onSubmit={handleSubmit} className="px-4 pb-3">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#71767b]" />
+            <SearchOutlined className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71767b]" style={{ fontSize: '20px' }} />
             <input
               type="text"
               value={searchQuery}
@@ -335,7 +346,7 @@ function MainFeed() {
               disabled={!searchQuery.trim() || state.status === 'loading'}
               className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-[#1d9bf0] text-white rounded-full font-bold text-sm hover:bg-[#1a8cd8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <Sparkles className="w-4 h-4 inline-block mr-1" />
+              <ThunderboltOutlined className="inline-block mr-1" style={{ fontSize: '16px' }} />
               Generate
             </button>
           </div>
@@ -376,18 +387,45 @@ function MainFeed() {
  * Home Page
  */
 export default function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePost = (content: string, photos: File[]) => {
+    console.log('Posting:', { content, photos });
+    // Here you would typically send the post to your backend
+    // For now, we'll just log it
+    alert(`Post created!\nContent: ${content || '(no text)'}\nPhotos: ${photos.length}`);
+  };
+
   return (
-    <div className="flex justify-center min-h-screen">
-      {/* Left Sidebar - Hidden on smaller screens */}
-      <div className="hidden md:block">
-        <LeftSidebar />
+    <>
+      <div className="flex justify-center min-h-screen">
+        {/* Left Sidebar - Hidden on smaller screens */}
+        <div className="hidden md:block">
+          <LeftSidebar onPostClick={() => setIsModalOpen(true)} />
+        </div>
+
+        {/* Main Feed */}
+        <MainFeed />
+
+        {/* Right Sidebar - Hidden on smaller screens */}
+        <RightSidebar />
       </div>
 
-      {/* Main Feed */}
-      <MainFeed />
+      {/* Floating Post Button for Mobile */}
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="fixed bottom-6 right-6 md:hidden w-14 h-14 bg-[#1d9bf0] hover:bg-[#1a8cd8] text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-40"
+        aria-label="Create post"
+      >
+        <ThunderboltOutlined style={{ fontSize: '24px' }} />
+      </button>
 
-      {/* Right Sidebar - Hidden on smaller screens */}
-      <RightSidebar />
-    </div>
+      {/* Photo Post Modal */}
+      <PhotoPostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPost={handlePost}
+      />
+    </>
   );
 }
